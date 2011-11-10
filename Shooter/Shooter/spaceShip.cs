@@ -59,10 +59,8 @@ namespace Shooter
         {
             if (gameTime.TotalGameTime - projectileLastFiredTime > projectileFiringInterval)
             {
-                var projectile = new LazerBeam("laser", contentManager, Position + new Vector2(Width / 2, 0), graphicsDevice,6);
-                projectile.Initialize(Position + new Vector2(Width/2, 0), graphicsDevice.Viewport);
+                projectiles.Add(new LazerBeam("laser", contentManager, Position + new Vector2(Width / 2, 0), graphicsDevice,6));
                 lazerSound.Play();
-                projectiles.Add(projectile);
                 projectileLastFiredTime = gameTime.TotalGameTime;
             }
         }

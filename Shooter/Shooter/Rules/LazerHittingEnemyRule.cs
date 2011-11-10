@@ -12,7 +12,7 @@ namespace Shooter.Rules
         private readonly ContentManager contentManager;
         private static readonly Type LazerBeamType = typeof(LazerBeam);
         private static readonly Type EnemyType = typeof(Enemy);
-        private SoundEffect explosionSound;
+        private readonly SoundEffect explosionSound;
 
         public LazerHittingEnemyRule(ContentManager contentManager)
         {

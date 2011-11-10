@@ -8,8 +8,6 @@ namespace Shooter
 {
     public class LazerBeam : Destroyable, IDynamicGameObject
     {
-        private readonly string spriteName;
-        private readonly ContentManager contentManager;
         private readonly GraphicsDevice graphicsDevice;
         private readonly int zIndex;
         public int Damage { get; private set; }
@@ -18,8 +16,7 @@ namespace Shooter
 
         public LazerBeam(string spriteName, ContentManager contentManager, Vector2 position, GraphicsDevice graphicsDevice,int zIndex) : base(1,position)
         {
-            this.spriteName = spriteName;
-            this.contentManager = contentManager;
+            texture = contentManager.Load<Texture2D>(spriteName);
             this.graphicsDevice = graphicsDevice;
             this.zIndex = zIndex;
             Damage = 2;
@@ -34,12 +31,6 @@ namespace Shooter
         protected override int Height
         {
             get { return texture.Height; }
-        }
-
-        public void Initialize(Vector2 position, Viewport viewport)
-        {
-            texture = texture ?? contentManager.Load<Texture2D>(spriteName);
-            Position = position;
         }
 
         public void Update(GameTime gameTime, KeyboardState keyboardState)
