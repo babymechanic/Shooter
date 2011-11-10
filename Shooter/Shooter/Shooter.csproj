@@ -112,6 +112,10 @@
     <Compile Include="Background.cs" />
     <Compile Include="DynamicGameObjects.cs" />
     <Compile Include="Enemy.cs" />
+    <Compile Include="Rules\IGameRule.cs" />
+    <Compile Include="Rules\LazerHittingEnemyRule.cs" />
+    <Compile Include="Rules\RemoveDeadObjectRule.cs" />
+    <Compile Include="Rules\SpaceShipVsEnemyColisionRule.cs" />
     <Compile Include="Types\IDynamicGameObject.cs" />
     <Compile Include="Types\Collidable.cs" />
     <Compile Include="Explosion.cs" />

@@ -11,31 +11,26 @@ namespace Shooter
 {
     public class SpaceShip : Destroyable ,IDynamicGameObject
     {
-
         private readonly ContentManager contentManager;
         private readonly float speed;
-        private readonly List<Enemy> enemies;
         private readonly List<LazerBeam> projectiles;
-        private readonly List<Explosion> explosions;
         private readonly GraphicsDevice graphicsDevice;
+        private readonly int zIndex;
         private readonly Animation animation;
         private readonly TimeSpan projectileFiringInterval;
         private TimeSpan projectileLastFiredTime;
         private readonly SoundEffect lazerSound;
-        private readonly SoundEffect explosionSound;
 
-        public SpaceShip(ContentManager contentManager, string spriteName, int numberOfFramesInSprite, float speed, List<Enemy> enemies, List<LazerBeam> projectiles, List<Explosion> explosions, GraphicsDevice graphicsDevice)
+        public SpaceShip(ContentManager contentManager, string spriteName, int numberOfFramesInSprite, float speed,List<LazerBeam> projectiles, GraphicsDevice graphicsDevice, int zIndex)
             : base(100, new Vector2(graphicsDevice.Viewport.TitleSafeArea.X + ((contentManager.Load<Texture2D>(spriteName).Width / 8) / 2), graphicsDevice.Viewport.TitleSafeArea.Y + graphicsDevice.Viewport.Height / 2))
         {
             this.contentManager = contentManager;
             this.speed = speed;
-            this.enemies = enemies;
             this.projectiles = projectiles;
-            this.explosions = explosions;
             this.graphicsDevice = graphicsDevice;
+            this.zIndex = zIndex;
             var texture = contentManager.Load<Texture2D>(spriteName);
             lazerSound = contentManager.Load<SoundEffect>("sound/laserFire");
-            explosionSound = contentManager.Load<SoundEffect>("sound/explosion");
             animation = new Animation(texture, Vector2.Zero, numberOfFramesInSprite, 30, Color.White, 1f, true);
             Position = new Vector2(graphicsDevice.Viewport.TitleSafeArea.X + ((texture.Width / 8) / 2), graphicsDevice.Viewport.TitleSafeArea.Y + graphicsDevice.Viewport.Height / 2);
             projectileFiringInterval = TimeSpan.FromSeconds(.15f);
@@ -44,7 +39,6 @@ namespace Shooter
 
         public void Update(GameTime gameTime, KeyboardState keyboardState)
         {
-            UpdateCollisions();
             FireWeapon(gameTime,graphicsDevice);
             animation.Position = Position;
             animation.Update(gameTime);
@@ -65,7 +59,7 @@ namespace Shooter
         {
             if (gameTime.TotalGameTime - projectileLastFiredTime > projectileFiringInterval)
             {
-                var projectile = new LazerBeam("laser", contentManager, Position + new Vector2(Width / 2, 0), graphicsDevice);
+                var projectile = new LazerBeam("laser", contentManager, Position + new Vector2(Width / 2, 0), graphicsDevice,6);
                 projectile.Initialize(Position + new Vector2(Width/2, 0), graphicsDevice.Viewport);
                 lazerSound.Play();
                 projectiles.Add(projectile);
@@ -78,6 +72,11 @@ namespace Shooter
             animation.Draw(spriteBatch);
         }
 
+        public int ZIndex
+        {
+            get { return zIndex; }
+        }
+
         protected override int Width
         {
             get { return animation.FrameWidth; }
@@ -88,36 +87,6 @@ namespace Shooter
             get { return animation.FrameHeight; }
         }
 
-        private void UpdateCollisions()
-        {
-            enemies.FindAll(x => x.ColidesWith(this) && x.IsAlive && IsAlive)
-                   .ForEach(ApplyColision);
-            foreach (var enemy in enemies)
-            {
-                if (!enemy.IsAlive) continue;
-                var projectilesHittingEnemy = projectiles.FindAll(x => x.ColidesWith(enemy) && x.IsAlive && enemy.IsAlive);
-                enemy.ApplyDamage(projectilesHittingEnemy);
-                if (!enemy.IsAlive)
-                {
-                    var explosion = new Explosion("explosion", contentManager, 12, enemy.Position);
-                    explosions.Add(explosion);
-                    explosionSound.Play();
-                }
-            }
-            enemies.RemoveAll(x => !x.IsAlive);
-            projectiles.RemoveAll(x => !x.IsAlive);
-        }
-
-        private void ApplyColision(Enemy enemy)
-        {
-            if (!enemy.IsAlive)return;
-            enemy.Die();
-            var explosion = new Explosion("explosion", contentManager, 12, enemy.Position);
-            explosions.Add(explosion);
-            explosionSound.Play();
-            ApplyDamage(enemy.Damage);
-        }
-        
         protected override void AfterDying()
         {
 

@@ -8,10 +8,12 @@ namespace Shooter
 {
     public class Explosion : IDynamicGameObject
     {
+        private readonly int zIndex;
         private readonly Animation animation;
         
-        public Explosion(string spriteName, ContentManager contentManager, int frameCount, Vector2 position)
+        public Explosion(string spriteName, ContentManager contentManager, int frameCount, Vector2 position,int zIndex)
         {
+            this.zIndex = zIndex;
             animation = new Animation(contentManager.Load<Texture2D>(spriteName), position, frameCount, 45, Color.White, 1f, false);
         }
 
@@ -26,6 +28,11 @@ namespace Shooter
             {
                 animation.Draw(spriteBatch);
             }
+        }
+
+        public int ZIndex
+        {
+            get { return zIndex; }
         }
 
         public bool IsActive

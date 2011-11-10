@@ -8,12 +8,14 @@ namespace Shooter
 {
     public class Enemy : Destroyable, IDynamicGameObject
     {
+        private readonly int zIndex;
         private readonly Animation animation;
         private int value;
         private readonly float speed;
 
-        public Enemy(Texture2D texture, int numberOfFrames,Vector2 position) : base(10,position)
+        public Enemy(Texture2D texture, int numberOfFrames,Vector2 position,int zIndex) : base(10,position)
         {
+            this.zIndex = zIndex;
             Damage = 10;
             speed = 6f;
             value = 100;
@@ -53,6 +55,11 @@ namespace Shooter
         public void Draw(SpriteBatch spriteBatch)
         {
             animation.Draw(spriteBatch);
+        }
+
+        public int ZIndex
+        {
+            get { return zIndex; }
         }
 
 

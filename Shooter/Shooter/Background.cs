@@ -12,10 +12,12 @@ namespace Shooter
         private readonly Texture2D sprite;
         private readonly Vector2[] positions;
         private readonly int speed;
+        private readonly int zIndex;
 
-        public Background(ContentManager contentManager, string spriteName, GraphicsDevice graphicsDevice, int speed)
+        public Background(ContentManager contentManager, string spriteName, GraphicsDevice graphicsDevice, int speed,int zIndex)
         {
             this.speed = speed;
+            this.zIndex = zIndex;
             sprite = contentManager.Load<Texture2D>(spriteName);
             positions = new Vector2[graphicsDevice.Viewport.Width / sprite.Width + 1];
             for (var i = 0; i < positions.Length; i++)
@@ -45,6 +47,11 @@ namespace Shooter
         public void Draw(SpriteBatch spriteBatch)
         {
             positions.ToList().ForEach(x => spriteBatch.Draw(sprite, x,Color.White));
+        }
+
+        public int ZIndex
+        {
+            get { return zIndex; }
         }
     }
 }
