@@ -112,9 +112,12 @@
     <Compile Include="Background.cs" />
     <Compile Include="DynamicGameObjects.cs" />
     <Compile Include="Enemy.cs" />
+    <Compile Include="LazerCannon.cs" />
     <Compile Include="Rules\IGameRule.cs" />
+    <Compile Include="Rules\RemoveOutOfScreenEnemies.cs" />
     <Compile Include="Rules\LazerHittingEnemyRule.cs" />
     <Compile Include="Rules\RemoveDeadObjectRule.cs" />
+    <Compile Include="Rules\RemoveOutOfScreenLazerBeams.cs" />
     <Compile Include="Rules\SpaceShipVsEnemyColisionRule.cs" />
     <Compile Include="Types\IDynamicGameObject.cs" />
     <Compile Include="Types\Collidable.cs" />
@@ -123,7 +126,7 @@
     <Compile Include="Types\Destroyable.cs" />
     <Compile Include="Types\IDisplayable.cs" />
     <Compile Include="LazerBeam.cs" />
-    <Compile Include="spaceShip.cs" />
+    <Compile Include="SpaceShip.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Shooter.cs" />

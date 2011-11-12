@@ -10,8 +10,8 @@ namespace Shooter.Types
         }
 
         public Vector2 Position { get; set; }
-        protected abstract int Width { get; } 
-        protected abstract int Height { get; }
+        public abstract int Width { get; }
+        public abstract int Height { get; }
 
         public bool ColidesWith(Collidable other)
         {

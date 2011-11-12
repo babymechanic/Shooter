@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -23,19 +24,19 @@ namespace Shooter
             speed = 20f;
         }
 
-        protected override int Width
+        public override int Width
         {
             get { return texture.Width; }
         }
 
-        protected override int Height
+        public override int Height
         {
             get { return texture.Height; }
         }
 
-        public void Update(GameTime gameTime, KeyboardState keyboardState)
+        public void Update(GameTime gameTime, KeyboardState keyboardState, List<IDynamicGameObject> gameObjects)
         {
-            Position = new Vector2(Position.X+speed,Position.Y);
+            Position = new Vector2(Position.X + speed, Position.Y);
             if (Position.X + texture.Width / 2 > graphicsDevice.Viewport.Width)
                 Die();
         }

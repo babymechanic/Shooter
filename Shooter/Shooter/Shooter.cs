@@ -11,7 +11,6 @@ namespace Shooter
     public class Shooter : Game
     {
         SpriteBatch spriteBatch;
-        private List<LazerBeam> projectiles;
         private EnemyMotherShip enemyMotherShip;
         private GraphicsDeviceManager graphicsDeviceManager;
         private List<IDynamicGameObject> gameObjects;
@@ -30,9 +29,10 @@ namespace Shooter
                             {
                                 new SpaceShipVsEnemyColisionRule(Content),
                                 new LazerHittingEnemyRule(Content),
-                                new RemoveDeadObjectRule()
+                                new RemoveDeadObjectRule(),
+                                new RemoveOutOfScreenEnemies(),
+                                new RemoveOutOfScreenLazerBeams()
                             };
-            projectiles = new List<LazerBeam>();
             enemyMotherShip = new EnemyMotherShip(Content, GraphicsDevice);
             base.Initialize();
         }
@@ -43,7 +43,7 @@ namespace Shooter
             gameObjects.Add(new Background(Content, "mainBackGround", GraphicsDevice, 0,0));
             gameObjects.Add(new Background(Content, "bgLayer1", GraphicsDevice, -1,1));
             gameObjects.Add(new Background(Content, "bgLayer2", GraphicsDevice, -2,2));
-            gameObjects.Add(new SpaceShip(Content, "shipAnimation", 8, 8.0f, projectiles, GraphicsDevice,9));
+            gameObjects.Add(new SpaceShip(Content, "shipAnimation", 8, 8.0f, GraphicsDevice,9));
         }
 
         protected override void UnloadContent()
@@ -53,11 +53,8 @@ namespace Shooter
         protected override void Update(GameTime gameTime)
         {
             var keyboardState = Keyboard.GetState();
-            gameObjects.ForEach(x => x.Update(gameTime, keyboardState));
-
-            projectiles.ForEach(x => x.Update(gameTime, keyboardState));
-
-            gameRules.ForEach(x => x.Apply(gameObjects));
+            gameObjects.ForEach(x => x.Update(gameTime, keyboardState,gameObjects));
+            gameRules.ForEach(x => x.Apply(gameObjects, GraphicsDevice));
             enemyMotherShip.GenerateEnemy(gameTime, gameObjects);
         }
 
@@ -65,11 +62,8 @@ namespace Shooter
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
-            projectiles.ForEach(x=>x.Draw(spriteBatch));
             foreach (var dynamicGameObject in gameObjects.OrderBy(x => x.ZIndex))
-            {
                 dynamicGameObject.Draw(spriteBatch);
-            }
             spriteBatch.End();
             base.Draw(gameTime);
         }

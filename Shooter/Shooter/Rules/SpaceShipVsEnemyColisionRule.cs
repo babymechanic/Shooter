@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using Shooter.Types;
 using System.Linq;
 
@@ -20,7 +21,7 @@ namespace Shooter.Rules
             explosionSound = contentManager.Load<SoundEffect>("sound/explosion");
         }
 
-        public void Apply(List<IDynamicGameObject> gameObjects)
+        public void Apply(List<IDynamicGameObject> gameObjects, GraphicsDevice graphicsDevice)
         {
             var spaceShip = (SpaceShip)gameObjects.Find(x => SpaceShipType.IsAssignableFrom(x.GetType()));
             var enemies = gameObjects.Where(x=>EnemyType.IsAssignableFrom(x.GetType()))
