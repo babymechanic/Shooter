@@ -9,10 +9,8 @@ namespace Shooter
         private readonly float scale;
         private int elapsedTime;
         private readonly int frameTime;
-        private int currentTime;
         private readonly int frameCount;
         private int currentFrame;
-        private Color color;
         private Rectangle sourceRectangle;
         private Rectangle destinationRectangle;
         public int FrameWidth { get; private set; }
@@ -21,10 +19,9 @@ namespace Shooter
         private bool looping;
         public Vector2 Position;
 
-        public Animation(Texture2D texture, Vector2 position, int frameCount, int frameTime, Color color, float scale, bool looping)
+        public Animation(Texture2D texture, Vector2 position, int frameCount, int frameTime, float scale, bool looping)
         {
             this.texture = texture;
-            this.color = color;
             this.frameCount = frameCount;
             this.frameTime = frameTime;
             this.looping = looping;

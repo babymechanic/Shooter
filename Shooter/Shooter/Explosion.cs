@@ -15,7 +15,7 @@ namespace Shooter
         public Explosion(string spriteName, ContentManager contentManager, int frameCount, Vector2 position,int zIndex)
         {
             this.zIndex = zIndex;
-            animation = new Animation(contentManager.Load<Texture2D>(spriteName), position, frameCount, 45, Color.White, 1f, false);
+            animation = new Animation(contentManager.Load<Texture2D>(spriteName), position, frameCount, 45, 1f, false);
         }
 
         public void Update(GameTime gameTime, KeyboardState keyboardState, List<IDynamicGameObject> gameObjects)

@@ -19,7 +19,7 @@ namespace Shooter
             Damage = 10;
             speed = 6f;
             value = 100;
-            animation = new Animation(texture, Vector2.Zero, numberOfFrames, 30, Color.White, 1f, true);
+            animation = new Animation(texture, Vector2.Zero, numberOfFrames, 30, 1f, true);
         }
 
         protected override void AfterDying()

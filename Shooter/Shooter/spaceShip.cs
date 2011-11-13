@@ -23,7 +23,7 @@ namespace Shooter
             this.graphicsDevice = graphicsDevice;
             this.zIndex = zIndex;
             var texture = contentManager.Load<Texture2D>(spriteName);
-            animation = new Animation(texture, Vector2.Zero, numberOfFramesInSprite, 30, Color.White, 1f, true);
+            animation = new Animation(texture, Vector2.Zero, numberOfFramesInSprite, 30, 1f, true);
             Position = new Vector2(graphicsDevice.Viewport.TitleSafeArea.X + ((texture.Width / 8) / 2), 
                                    graphicsDevice.Viewport.TitleSafeArea.Y + graphicsDevice.Viewport.Height / 2);
             lazerCannon = new LazerCannon(contentManager, graphicsDevice, Width);
