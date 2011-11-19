@@ -30,7 +30,7 @@ namespace Shooter
         {
             if (gameTime.TotalGameTime - projectileLastFiredTime > timeBtwEachShot)
             {
-                gameObjects.Add(new LazerBeam("laser", contentManager, new Vector2(spaceShipPosition.X + spaceShipWidth / 2,spaceShipPosition.Y),graphicsDevice, 6));
+                gameObjects.Add(new LazerBeam("laser", contentManager, new Vector2(spaceShipPosition.X + spaceShipWidth / 2,spaceShipPosition.Y),graphicsDevice, .01f));
                 lazerSound.Play();
                 projectileLastFiredTime = gameTime.TotalGameTime;
             }

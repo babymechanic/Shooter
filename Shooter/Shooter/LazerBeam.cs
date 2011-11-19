@@ -10,14 +10,16 @@ namespace Shooter
     public class LazerBeam : Destroyable, IDynamicGameObject
     {
         private readonly GraphicsDevice graphicsDevice;
+        private readonly float zIndex;
         public int Damage { get; private set; }
         private readonly float speed;
         private static Texture2D texture;
 
-        public LazerBeam(string spriteName, ContentManager contentManager, Vector2 position, GraphicsDevice graphicsDevice,int zIndex) : base(1,position)
+        public LazerBeam(string spriteName, ContentManager contentManager, Vector2 position, GraphicsDevice graphicsDevice,float zIndex) : base(1,position)
         {
             texture = contentManager.Load<Texture2D>(spriteName);
             this.graphicsDevice = graphicsDevice;
+            this.zIndex = zIndex;
             Damage = 2;
             speed = 20f;
         }
@@ -44,7 +46,7 @@ namespace Shooter
             if (IsAlive)
             {
                 var origin = new Vector2(texture.Width / 2, texture.Height / 2);
-                spriteBatch.Draw(texture, Position, null, Color.White, 0f, origin, 1f, SpriteEffects.None,0f);
+                spriteBatch.Draw(texture, Position, null, Color.White, 0f, origin, 1f, SpriteEffects.None,zIndex);
             }
         }
 
