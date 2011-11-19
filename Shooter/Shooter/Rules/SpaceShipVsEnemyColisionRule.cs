@@ -30,7 +30,7 @@ namespace Shooter.Rules
             foreach (var enemy in colidingEnemies)
             {
                 enemy.Die();
-                gameObjects.Add(new Explosion("explosion", contentManager, 12, enemy.Position, 6));
+                gameObjects.Add(new Explosion("explosion", contentManager, 12, enemy.Position,.06f));
                 explosionSound.Play();
             }
         }
