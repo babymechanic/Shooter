@@ -17,14 +17,16 @@ namespace Shooter
         public int FrameHeight { get; private set; }
         public bool IsActive { get; private set; }
         private bool looping;
+        private readonly float zindex;
         public Vector2 Position;
 
-        public Animation(Texture2D texture, Vector2 position, int frameCount, int frameTime, float scale, bool looping)
+        public Animation(Texture2D texture, Vector2 position, int frameCount, int frameTime, float scale, bool looping,float zindex)
         {
             this.texture = texture;
             this.frameCount = frameCount;
             this.frameTime = frameTime;
             this.looping = looping;
+            this.zindex = zindex;
             this.scale = scale;
             Position = position;
             FrameHeight = texture.Height;
@@ -60,7 +62,7 @@ namespace Shooter
         public void Draw(SpriteBatch spriteBatch)
         {
             if (!IsActive) return;
-            spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
+            spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White,0f,Vector2.Zero,SpriteEffects.None,zindex);
         }
     }
 }

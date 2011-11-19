@@ -11,19 +11,17 @@ namespace Shooter
     {
         private readonly float speed;
         private readonly GraphicsDevice graphicsDevice;
-        private readonly int zIndex;
         private readonly Animation animation;
         private LazerCannon lazerCannon;
 
-        public SpaceShip(ContentManager contentManager, string spriteName, int numberOfFramesInSprite, float speed,GraphicsDevice graphicsDevice, int zIndex)
+        public SpaceShip(ContentManager contentManager, string spriteName, int numberOfFramesInSprite, float speed,GraphicsDevice graphicsDevice, float zIndex)
             : base(100, new Vector2(graphicsDevice.Viewport.TitleSafeArea.X + ((contentManager.Load<Texture2D>(spriteName).Width / 8) / 2), 
                                     graphicsDevice.Viewport.TitleSafeArea.Y + graphicsDevice.Viewport.Height / 2))
         {
             this.speed = speed;
             this.graphicsDevice = graphicsDevice;
-            this.zIndex = zIndex;
             var texture = contentManager.Load<Texture2D>(spriteName);
-            animation = new Animation(texture, Vector2.Zero, numberOfFramesInSprite, 30, 1f, true);
+            animation = new Animation(texture, Vector2.Zero, numberOfFramesInSprite, 30, 1f, true,zIndex);
             Position = new Vector2(graphicsDevice.Viewport.TitleSafeArea.X + ((texture.Width / 8) / 2), 
                                    graphicsDevice.Viewport.TitleSafeArea.Y + graphicsDevice.Viewport.Height / 2);
             lazerCannon = new LazerCannon(contentManager, graphicsDevice, Width);
@@ -57,12 +55,7 @@ namespace Shooter
         {
             animation.Draw(spriteBatch);
         }
-
-        public int ZIndex
-        {
-            get { return zIndex; }
-        }
-
+ 
         public override int Width
         {
             get { return animation.FrameWidth; }

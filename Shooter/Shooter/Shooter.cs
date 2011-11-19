@@ -40,10 +40,10 @@ namespace Shooter
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            gameObjects.Add(new Background(Content, "mainBackGround", GraphicsDevice, 0,0));
-            gameObjects.Add(new Background(Content, "bgLayer1", GraphicsDevice, -1,1));
-            gameObjects.Add(new Background(Content, "bgLayer2", GraphicsDevice, -2,2));
-            gameObjects.Add(new SpaceShip(Content, "shipAnimation", 8, 8.0f, GraphicsDevice,9));
+            gameObjects.Add(new Background(Content, "mainBackGround", GraphicsDevice, 0,1f));
+            gameObjects.Add(new Background(Content, "bgLayer1", GraphicsDevice, -1,.09f));
+            gameObjects.Add(new Background(Content, "bgLayer2", GraphicsDevice, -2,.08f));
+            gameObjects.Add(new SpaceShip(Content, "shipAnimation", 8, 8.0f, GraphicsDevice,0f));
         }
 
         protected override void UnloadContent()
@@ -61,9 +61,8 @@ namespace Shooter
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            spriteBatch.Begin();
-            foreach (var dynamicGameObject in gameObjects.OrderBy(x => x.ZIndex))
-                dynamicGameObject.Draw(spriteBatch);
+            spriteBatch.Begin(SpriteSortMode.BackToFront,BlendState.AlphaBlend);
+            gameObjects.ForEach(x=>x.Draw(spriteBatch));
             spriteBatch.End();
             base.Draw(gameTime);
         }

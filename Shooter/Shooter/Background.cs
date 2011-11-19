@@ -13,9 +13,9 @@ namespace Shooter
         private readonly Texture2D sprite;
         private readonly Vector2[] positions;
         private readonly int speed;
-        private readonly int zIndex;
+        private readonly float zIndex;
 
-        public Background(ContentManager contentManager, string spriteName, GraphicsDevice graphicsDevice, int speed,int zIndex)
+        public Background(ContentManager contentManager, string spriteName, GraphicsDevice graphicsDevice, int speed,float zIndex)
         {
             this.speed = speed;
             this.zIndex = zIndex;
@@ -47,12 +47,7 @@ namespace Shooter
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            positions.ToList().ForEach(x => spriteBatch.Draw(sprite, x,Color.White));
-        }
-
-        public int ZIndex
-        {
-            get { return zIndex; }
+            positions.ToList().ForEach(x => spriteBatch.Draw(sprite, x,null,Color.White,0f,Vector2.Zero,1f,SpriteEffects.None,zIndex));
         }
     }
 }

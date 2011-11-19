@@ -10,7 +10,6 @@ namespace Shooter
     public class LazerBeam : Destroyable, IDynamicGameObject
     {
         private readonly GraphicsDevice graphicsDevice;
-        private readonly int zIndex;
         public int Damage { get; private set; }
         private readonly float speed;
         private static Texture2D texture;
@@ -19,7 +18,6 @@ namespace Shooter
         {
             texture = contentManager.Load<Texture2D>(spriteName);
             this.graphicsDevice = graphicsDevice;
-            this.zIndex = zIndex;
             Damage = 2;
             speed = 20f;
         }
@@ -48,11 +46,6 @@ namespace Shooter
                 var origin = new Vector2(texture.Width / 2, texture.Height / 2);
                 spriteBatch.Draw(texture, Position, null, Color.White, 0f, origin, 1f, SpriteEffects.None,0f);
             }
-        }
-
-        public int ZIndex
-        {
-            get { return zIndex; }
         }
 
         protected override void AfterDying()

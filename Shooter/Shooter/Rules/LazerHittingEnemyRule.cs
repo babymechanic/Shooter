@@ -34,7 +34,7 @@ namespace Shooter.Rules
                     collidingEnemy.ApplyDamage(lazerBeam.Damage);
                     lazerBeam.Die();
                     if (collidingEnemy.IsAlive) continue;
-                    gameObjects.Add(new Explosion("explosion", contentManager, 12, collidingEnemy.Position, 6));
+                    gameObjects.Add(new Explosion("explosion", contentManager, 12, collidingEnemy.Position, .06f));
                     explosionSound.Play();
                 }
             }

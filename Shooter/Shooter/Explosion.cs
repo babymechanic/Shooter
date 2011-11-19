@@ -9,13 +9,11 @@ namespace Shooter
 {
     public class Explosion : IDynamicGameObject
     {
-        private readonly int zIndex;
         private readonly Animation animation;
         
-        public Explosion(string spriteName, ContentManager contentManager, int frameCount, Vector2 position,int zIndex)
+        public Explosion(string spriteName, ContentManager contentManager, int frameCount, Vector2 position,float zIndex)
         {
-            this.zIndex = zIndex;
-            animation = new Animation(contentManager.Load<Texture2D>(spriteName), position, frameCount, 45, 1f, false);
+            animation = new Animation(contentManager.Load<Texture2D>(spriteName), position, frameCount, 45, 1f, false,zIndex);
         }
 
         public void Update(GameTime gameTime, KeyboardState keyboardState, List<IDynamicGameObject> gameObjects)
@@ -29,11 +27,6 @@ namespace Shooter
             {
                 animation.Draw(spriteBatch);
             }
-        }
-
-        public int ZIndex
-        {
-            get { return zIndex; }
         }
 
         public bool IsActive
