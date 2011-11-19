@@ -12,7 +12,7 @@ namespace Shooter
         private readonly float speed;
         private readonly GraphicsDevice graphicsDevice;
         private readonly Animation animation;
-        private LazerCannon lazerCannon;
+        private readonly LazerCannon lazerCannon;
 
         public SpaceShip(ContentManager contentManager, string spriteName, int numberOfFramesInSprite, float speed,GraphicsDevice graphicsDevice, float zIndex)
             : base(100, new Vector2(graphicsDevice.Viewport.TitleSafeArea.X + ((contentManager.Load<Texture2D>(spriteName).Width / 8) / 2), 
@@ -21,19 +21,17 @@ namespace Shooter
             this.speed = speed;
             this.graphicsDevice = graphicsDevice;
             var texture = contentManager.Load<Texture2D>(spriteName);
-            animation = new Animation(texture, Vector2.Zero, numberOfFramesInSprite, 30, 1f, true,zIndex);
+            animation = new Animation(texture, Vector2.Zero, numberOfFramesInSprite, 30, true,zIndex);
             Position = new Vector2(graphicsDevice.Viewport.TitleSafeArea.X + ((texture.Width / 8) / 2), 
                                    graphicsDevice.Viewport.TitleSafeArea.Y + graphicsDevice.Viewport.Height / 2);
-            lazerCannon = new LazerCannon(contentManager, graphicsDevice, Width);
+            lazerCannon = new LazerCannon(contentManager, graphicsDevice, Width, Height);
         }
 
         public void Update(GameTime gameTime, KeyboardState keyboardState, List<IDynamicGameObject> gameObjects)
         {
-            
-            animation.Position = Position;
-            animation.Update(gameTime);
             Move(keyboardState);
-            lazerCannon.Fire(gameObjects, gameTime, Position);
+            animation.Update(gameTime);
+            lazerCannon.Fire(gameObjects, gameTime, Origin());
         }
 
         private void Move(KeyboardState keyboardState)
@@ -46,9 +44,10 @@ namespace Shooter
                 Position = new Vector2(Position.X, Position.Y - speed);
             if (keyboardState.IsKeyDown(Keys.Down))
                 Position = new Vector2(Position.X, Position.Y + speed);
-            var clampedX = MathHelper.Clamp(Position.X, Width/2, graphicsDevice.Viewport.Width - Width/2);
-            var clampedY = MathHelper.Clamp(Position.Y, Height/2, graphicsDevice.Viewport.Height - Height/2);
+            var clampedX = MathHelper.Clamp(Position.X,0, graphicsDevice.Viewport.Width - Width);
+            var clampedY = MathHelper.Clamp(Position.Y,0, graphicsDevice.Viewport.Height - Height);
             Position = new Vector2(clampedX, clampedY);
+            animation.Position = Position;
         }
 
         public void Draw(SpriteBatch spriteBatch)

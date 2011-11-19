@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Shooter.Types;
@@ -11,13 +10,14 @@ namespace Shooter
     {
         private readonly GraphicsDevice graphicsDevice;
         private readonly float zIndex;
-        public int Damage { get; private set; }
         private readonly float speed;
-        private static Texture2D texture;
+        private readonly Texture2D texture;
+        public int Damage { get; private set; }
 
-        public LazerBeam(string spriteName, ContentManager contentManager, Vector2 position, GraphicsDevice graphicsDevice,float zIndex) : base(1,position)
+        public LazerBeam(Texture2D texture, Vector2 position, GraphicsDevice graphicsDevice,float zIndex) : 
+        base(1,position)
         {
-            texture = contentManager.Load<Texture2D>(spriteName);
+            this.texture = texture;
             this.graphicsDevice = graphicsDevice;
             this.zIndex = zIndex;
             Damage = 2;
@@ -45,8 +45,7 @@ namespace Shooter
         {
             if (IsAlive)
             {
-                var origin = new Vector2(texture.Width / 2, texture.Height / 2);
-                spriteBatch.Draw(texture, Position, null, Color.White, 0f, origin, 1f, SpriteEffects.None,zIndex);
+                spriteBatch.Draw(texture, Position, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None,zIndex);
             }
         }
 

@@ -24,5 +24,10 @@ namespace Shooter.Types
         {
             return new Rectangle((int)Position.X, (int)Position.Y, Width,Height);
         }
+
+        protected Vector2 Origin()
+        {
+            return new Vector2(Position.X + Width/2,Position.Y + Height/2);
+        }
     }
 }

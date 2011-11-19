@@ -24,6 +24,7 @@ namespace Shooter
 
         protected override void Initialize()
         {
+            enemyMotherShip = new EnemyMotherShip(Content, GraphicsDevice);
             gameObjects = new List<IDynamicGameObject>();
             gameRules = new List<IGameRule>
                             {
@@ -33,7 +34,6 @@ namespace Shooter
                                 new RemoveOutOfScreenEnemies(),
                                 new RemoveOutOfScreenLazerBeams()
                             };
-            enemyMotherShip = new EnemyMotherShip(Content, GraphicsDevice);
             base.Initialize();
         }
 

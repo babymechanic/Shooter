@@ -13,7 +13,7 @@ namespace Shooter
         
         public Explosion(string spriteName, ContentManager contentManager, int frameCount, Vector2 position,float zIndex)
         {
-            animation = new Animation(contentManager.Load<Texture2D>(spriteName), position, frameCount, 45, 1f, false,zIndex);
+            animation = new Animation(contentManager.Load<Texture2D>(spriteName), position, frameCount, 45, false,zIndex);
         }
 
         public void Update(GameTime gameTime, KeyboardState keyboardState, List<IDynamicGameObject> gameObjects)

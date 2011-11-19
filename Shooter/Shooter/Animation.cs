@@ -6,7 +6,6 @@ namespace Shooter
     public class Animation
     {
         private readonly Texture2D texture;
-        private readonly float scale;
         private int elapsedTime;
         private readonly int frameTime;
         private readonly int frameCount;
@@ -20,14 +19,13 @@ namespace Shooter
         private readonly float zindex;
         public Vector2 Position;
 
-        public Animation(Texture2D texture, Vector2 position, int frameCount, int frameTime, float scale, bool looping,float zindex)
+        public Animation(Texture2D texture, Vector2 position, int frameCount, int frameTime, bool looping,float zindex)
         {
             this.texture = texture;
             this.frameCount = frameCount;
             this.frameTime = frameTime;
             this.looping = looping;
             this.zindex = zindex;
-            this.scale = scale;
             Position = position;
             FrameHeight = texture.Height;
             FrameWidth = texture.Width / frameCount;
@@ -53,10 +51,7 @@ namespace Shooter
                 elapsedTime = 0;
             }
             sourceRectangle = new Rectangle(currentFrame * FrameWidth, 0, FrameWidth, FrameHeight);
-            destinationRectangle = new Rectangle((int)Position.X - (int)(FrameWidth * scale) / 2,
-                                                 (int)Position.Y - (int)(FrameHeight * scale) / 2,
-                                                 (int)(FrameWidth * scale),
-                                                 (int)(FrameHeight * scale));
+            destinationRectangle = new Rectangle((int)Position.X,(int)Position.Y,FrameWidth,FrameHeight);
         }
 
         public void Draw(SpriteBatch spriteBatch)
