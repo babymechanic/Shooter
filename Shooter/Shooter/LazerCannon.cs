@@ -35,8 +35,6 @@ namespace Shooter
             if (gameTime.TotalGameTime - projectileLastFiredTime <= timeBtwEachShot) return;
             var lazerBeamXCoordinate = spaceShipOriginPosition.X;
             var lazerBeamYCoordinate = spaceShipOriginPosition.Y - (lazerBeamTexture.Height /2);
-
-            
             gameObjects.Add(new LazerBeam(lazerBeamTexture, new Vector2(lazerBeamXCoordinate,lazerBeamYCoordinate), graphicsDevice, .01f));
             lazerSound.Play();
             projectileLastFiredTime = gameTime.TotalGameTime;

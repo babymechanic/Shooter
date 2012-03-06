@@ -10,7 +10,6 @@ namespace Shooter
     {
         private readonly int zIndex;
         private readonly Animation animation;
-        private int value;
         private readonly float speed;
 
         public Enemy(Texture2D texture, int numberOfFrames,Vector2 position,int zIndex) : base(10,position)
@@ -18,7 +17,6 @@ namespace Shooter
             this.zIndex = zIndex;
             Damage = 10;
             speed = 6f;
-            value = 100;
             animation = new Animation(texture, Vector2.Zero, numberOfFrames, 30, true,.05f);
         }
 

@@ -3,3 +3,4 @@
 *.cachefile
 bin/
 obj/
+*[Rr]esharper*

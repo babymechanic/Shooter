@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Shooter.Rules;
 using Shooter.Types;
-using System.Linq;
 
 namespace Shooter
 {
@@ -31,8 +30,8 @@ namespace Shooter
                                 new SpaceShipVsEnemyColisionRule(Content),
                                 new LazerHittingEnemyRule(Content),
                                 new RemoveDeadObjectRule(),
-                                new RemoveOutOfScreenEnemies(),
-                                new RemoveOutOfScreenLazerBeams()
+                                new RemoveOutOfScreenEnemiesRule(),
+                                new RemoveOutOfScreenLazerBeamsRule()
                             };
             base.Initialize();
         }

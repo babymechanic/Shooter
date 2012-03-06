@@ -114,10 +114,10 @@
     <Compile Include="Enemy.cs" />
     <Compile Include="LazerCannon.cs" />
     <Compile Include="Rules\IGameRule.cs" />
-    <Compile Include="Rules\RemoveOutOfScreenEnemies.cs" />
+    <Compile Include="Rules\RemoveOutOfScreenEnemiesRule.cs" />
     <Compile Include="Rules\LazerHittingEnemyRule.cs" />
     <Compile Include="Rules\RemoveDeadObjectRule.cs" />
-    <Compile Include="Rules\RemoveOutOfScreenLazerBeams.cs" />
+    <Compile Include="Rules\RemoveOutOfScreenLazerBeamsRule.cs" />
     <Compile Include="Rules\SpaceShipVsEnemyColisionRule.cs" />
     <Compile Include="Types\IDynamicGameObject.cs" />
     <Compile Include="Types\Collidable.cs" />
@@ -168,9 +168,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Entities\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <!--
