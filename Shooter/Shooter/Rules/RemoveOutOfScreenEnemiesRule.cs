@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
+using Shooter.GameObjects;
 using Shooter.Types;
 
 namespace Shooter.Rules
